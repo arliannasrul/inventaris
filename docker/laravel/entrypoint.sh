@@ -13,4 +13,11 @@ fi
 
 php artisan config:clear >/dev/null 2>&1 || true
 
+# Ensure SQLite file exists if connection is SQLite
+if [ "$DB_CONNECTION" = "sqlite" ]; then
+  touch database/database.sqlite
+fi
+
+php artisan migrate --force
+
 exec "$@"

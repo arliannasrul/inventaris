@@ -11,10 +11,10 @@
 <section class="panel">
     <ul class="activity notifications">
         @forelse (($data['notifications'] ?? []) as $notification)
-            <li @class(['unread' => empty($notification['readAt'])])>
+            <li @class(['unread' => empty($notification['read_at'])])>
                 <strong>{{ $notification['title'] }}</strong>
                 <span>{{ $notification['body'] }}</span>
-                @if (empty($notification['readAt']))
+                @if (empty($notification['read_at']))
                     <form method="post" action="{{ route('notifications.read', $notification['id']) }}">
                         @csrf
                         <button class="button" type="submit">Tandai dibaca</button>

@@ -34,7 +34,7 @@
             <tbody>
             @forelse (($data['movements'] ?? []) as $movement)
                 <tr>
-                    <td>{{ \Illuminate\Support\Str::of($movement['createdAt'])->substr(0, 10) }}</td>
+                    <td>{{ \Illuminate\Support\Str::of($movement['created_at'])->substr(0, 10) }}</td>
                     <td>{{ $movement['item']['name'] ?? '-' }}</td>
                     <td>{{ $movement['type'] }}</td>
                     <td>{{ $movement['quantity'] }}</td>
