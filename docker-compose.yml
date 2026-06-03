@@ -1,0 +1,67 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/laravel/Dockerfile
+    environment:
+      APP_NAME: ${APP_NAME:-Arlian6A1 Inventory}
+      APP_ENV: ${APP_ENV:-local}
+      APP_KEY: ${APP_KEY:-}
+      APP_DEBUG: ${APP_DEBUG:-true}
+      APP_URL: ${APP_URL:-http://inventaris.localhost}
+      PRISMA_API_URL: ${PRISMA_API_URL:-http://prisma-api:3000}
+      PRISMA_API_TOKEN: ${PRISMA_API_TOKEN:-change-me}
+      SESSION_DRIVER: file
+      CACHE_STORE: file
+      QUEUE_CONNECTION: sync
+      LOG_CHANNEL: stack
+    volumes:
+      - .:/var/www/html
+      - laravel_vendor:/var/www/html/vendor
+    ports:
+      - "8000:8000"
+    depends_on:
+      - prisma-api
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.inventory.rule=Host(`${TRAEFIK_HOST:-inventaris.localhost}`)
+      - traefik.http.routers.inventory.entrypoints=web
+      - traefik.http.services.inventory.loadbalancer.server.port=8000
+
+  prisma-api:
+    build:
+      context: ./prisma-api
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+      API_TOKEN: ${PRISMA_API_TOKEN:-change-me}
+      NODE_ENV: production
+      PORT: 3000
+    volumes:
+      - ./prisma-api:/usr/src/app
+      - prisma_node_modules:/usr/src/app/node_modules
+    ports:
+      - "3000:3000"
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.inventory-api.rule=Host(`${TRAEFIK_API_HOST:-api.inventaris.localhost}`)
+      - traefik.http.routers.inventory-api.entrypoints=web
+      - traefik.http.services.inventory-api.loadbalancer.server.port=3000
+
+  traefik:
+    image: traefik:v3.1
+    command:
+      - --api.dashboard=true
+      - --api.insecure=true
+      - --entrypoints.web.address=:80
+    ports:
+      - "80:80"
+      - "8080:8080"
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.traefik.rule=Host(`${TRAEFIK_DASHBOARD_HOST:-traefik.localhost}`)
+      - traefik.http.routers.traefik.entrypoints=web
+      - traefik.http.routers.traefik.service=api@internal
+
+volumes:
+  laravel_vendor:
+  prisma_node_modules:

@@ -1,0 +1,95 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum MovementType {
+  IN
+  OUT
+  DAMAGED
+  ADJUSTMENT
+}
+
+enum NotificationType {
+  LOW_STOCK
+  OUT_OF_STOCK
+  MOVEMENT
+  SYSTEM
+}
+
+model Item {
+  id           String          @id @default(cuid())
+  sku          String          @unique
+  name         String
+  category     String
+  location     String
+  supplier     String?
+  unit         String          @default("pcs")
+  quantity     Int            @default(0)
+  minimumStock Int            @default(0)
+  unitPrice    Decimal         @default(0) @db.Decimal(14, 2)
+  notes        String?
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+  movements    StockMovement[]
+  messages     Message[]
+  auditLogs    AuditLog[]
+
+  @@index([category])
+  @@index([location])
+}
+
+model StockMovement {
+  id        String       @id @default(cuid())
+  itemId    String
+  type      MovementType
+  quantity  Int
+  reference String?
+  actor     String
+  notes     String?
+  createdAt DateTime     @default(now())
+  item      Item         @relation(fields: [itemId], references: [id], onDelete: Cascade)
+
+  @@index([type])
+  @@index([createdAt])
+}
+
+model Notification {
+  id        String           @id @default(cuid())
+  type      NotificationType
+  title     String
+  body      String
+  readAt    DateTime?
+  createdAt DateTime         @default(now())
+
+  @@index([readAt])
+  @@index([createdAt])
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  itemId    String
+  author    String
+  message   String
+  createdAt DateTime @default(now())
+  item      Item     @relation(fields: [itemId], references: [id], onDelete: Cascade)
+
+  @@index([createdAt])
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  itemId    String?
+  action    String
+  actor     String
+  payload   Json
+  createdAt DateTime @default(now())
+  item      Item?    @relation(fields: [itemId], references: [id], onDelete: SetNull)
+
+  @@index([action])
+  @@index([createdAt])
+}
