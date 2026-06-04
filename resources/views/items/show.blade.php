@@ -39,7 +39,7 @@
             </select>
             <input name="quantity" type="number" min="1" placeholder="Jumlah" required>
             <input name="reference" placeholder="Referensi dokumen">
-            <input name="actor" placeholder="Dicatat oleh" value="Operator" required>
+            <input name="actor" placeholder="Dicatat oleh" value="{{ Auth::user()->name }}" readonly required>
             <textarea name="notes" placeholder="Catatan"></textarea>
             <button class="button primary" type="submit">Catat stok</button>
         </form>
@@ -49,7 +49,7 @@
         <h2>Komunikasi</h2>
         <form class="stack" method="post" action="{{ route('messages.store', $item['id']) }}">
             @csrf
-            <input name="author" placeholder="Nama" value="Operator" required>
+            <input name="author" placeholder="Nama" value="{{ Auth::user()->name }}" readonly required>
             <textarea name="message" placeholder="Tulis pesan atau tindak lanjut" required></textarea>
             <button class="button primary" type="submit">Kirim pesan</button>
         </form>

@@ -29,6 +29,9 @@ a { color: var(--accent); text-decoration: none; }
     padding: 24px;
     position: sticky;
     top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 .brand { display: flex; gap: 12px; align-items: center; margin-bottom: 34px; }
 .brand-mark {
@@ -165,3 +168,10 @@ textarea { min-height: 92px; resize: vertical; }
     .stats { grid-template-columns: repeat(4, 1fr); }
     .stats article, .panel { box-shadow: none; }
 }
+
+.user-profile button:hover {
+    background: rgba(239, 68, 68, 0.15) !important;
+    border-color: rgba(239, 68, 68, 0.3) !important;
+    color: #ef4444 !important;
+}
+
