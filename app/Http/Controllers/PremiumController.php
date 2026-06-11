@@ -67,6 +67,11 @@ class PremiumController extends Controller
                 ->first();
         }
 
+        // Fallback: jika tidak ada query param, cari transaksi pending terakhir milik user
+        if (!$payment && auth()->check()) {
+            $payment = auth()->user()->payments()->where('status', 'pending')->first();
+        }
+
         return view('premium.success', compact('payment'));
     }
 

@@ -79,8 +79,8 @@ class DokuPaymentService
                 ],
                 'amount'              => $amount,
                 'currency'            => 'IDR',
-                'callback_url'        => route('premium.success'),
-                'callback_url_cancel' => route('premium.failed'),
+                'callback_url'        => route('premium.success', ['invoice_number' => $orderId]),
+                'callback_url_cancel' => route('premium.failed', ['invoice_number' => $orderId]),
             ],
             'payment' => [
                 'payment_due_date' => 60, // menit
