@@ -419,7 +419,11 @@
                 <li class="muted"><span class="cross">✗</span> Ekspor data</li>
                 <li class="muted"><span class="cross">✗</span> Item tak terbatas</li>
             </ul>
-            <span class="btn-upgrade btn-upgrade-secondary">Paket Saat Ini</span>
+            @if ($user && $user->isPremium())
+                <span class="btn-upgrade btn-upgrade-secondary" style="opacity: 0.6; cursor: not-allowed;">Paket Dasar</span>
+            @else
+                <span class="btn-upgrade btn-upgrade-secondary">Paket Saat Ini</span>
+            @endif
         </div>
 
         {{-- Premium Bulanan --}}
@@ -440,11 +444,13 @@
                 <li><span class="check">✓</span> Prioritas dukungan</li>
                 <li><span class="check">✓</span> Semua fitur Gratis</li>
             </ul>
-            @if ($user && $user->isPremium())
+            @if ($user && $user->isPremium() && $user->premium_plan === 'monthly')
+                <span class="btn-upgrade btn-upgrade-secondary" style="background: rgba(25,115,107,0.1); color: #19736b; border: 1.5px solid rgba(25,115,107,0.3); cursor: default;">Paket Saat Ini</span>
+            @elseif ($user && $user->isPremium())
                 <form method="POST" action="{{ route('premium.checkout') }}">
                     @csrf
                     <input type="hidden" name="plan" value="monthly">
-                    <button type="submit" class="btn-upgrade btn-upgrade-primary">Perpanjang Bulanan</button>
+                    <button type="submit" class="btn-upgrade btn-upgrade-primary">Beralih ke Bulanan</button>
                 </form>
             @else
                 <form method="POST" action="{{ route('premium.checkout') }}">
@@ -474,11 +480,13 @@
                 <li><span class="check">✓</span> Prioritas dukungan</li>
                 <li><span class="check">✓</span> Semua fitur Gratis</li>
             </ul>
-            @if ($user && $user->isPremium())
+            @if ($user && $user->isPremium() && $user->premium_plan === 'yearly')
+                <span class="btn-upgrade btn-upgrade-secondary" style="background: rgba(217,119,6,0.1); color: #b45309; border: 1.5px solid rgba(217,119,6,0.3); cursor: default;">Paket Saat Ini</span>
+            @elseif ($user && $user->isPremium())
                 <form method="POST" action="{{ route('premium.checkout') }}">
                     @csrf
                     <input type="hidden" name="plan" value="yearly">
-                    <button type="submit" class="btn-upgrade btn-upgrade-primary">Perpanjang Tahunan</button>
+                    <button type="submit" class="btn-upgrade btn-upgrade-primary">Upgrade ke Tahunan</button>
                 </form>
             @else
                 <form method="POST" action="{{ route('premium.checkout') }}">
