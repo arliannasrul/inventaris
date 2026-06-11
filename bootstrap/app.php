@@ -11,8 +11,8 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        $middleware->alias([
-            'premium' => \App\Http\Middleware\EnsurePremium::class,
+        $middleware->validateCsrfTokens(except: [
+            'api/ecommerce/*',
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

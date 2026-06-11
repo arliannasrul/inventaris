@@ -12,12 +12,8 @@ return [
         'redirect'      => env('GOOGLE_REDIRECT_URI', env('APP_URL') . '/auth/google/callback'),
     ],
 
-    'doku' => [
-        'client_id'     => env('DOKU_CLIENT_ID'),
-        'secret_key'    => env('DOKU_SECRET_KEY'),
-        'is_production' => env('DOKU_IS_PRODUCTION', false),
-        'base_url'      => env('DOKU_IS_PRODUCTION', false)
-                            ? 'https://api.doku.com'
-                            : 'https://sandbox.doku.com',
+    'kiriminaja' => [
+        'api_key'  => env('KIRIMINAJA_API_KEY'),
+        'base_url' => env('KIRIMINAJA_BASE_URL', 'https://tdev.kiriminaja.com/api/wd/v1'),
     ],
 ];

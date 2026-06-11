@@ -352,18 +352,18 @@
 
         <div class="auth-hero-body">
             <h1 class="auth-hero-title">
-                Jelajahi <span>Ribuan Toko</span><br>Dalam Satu Genggaman.
+                MitraSpace <span>Seller Center</span><br>Kelola Bisnis Anda.
             </h1>
             <p class="auth-hero-desc">
-                Temukan produk terbaik dari berbagai UMKM pilihan di seluruh Indonesia. Cepat, aman, dan terpercaya.
+                Kelola inventori barang, pantau status pengiriman logistik secara real-time, dan bangun hubungan erat dengan pelanggan Anda melalui CRM terpadu.
             </p>
             <div class="auth-hero-preview">
-                <img src="{{ asset('images/login_dashboard_preview.png') }}" alt="Dashboard Preview">
+                <img src="{{ asset('images/login_dashboard_preview.png') }}" alt="Dashboard Preview" style="border-radius: 8px;">
             </div>
         </div>
 
         <div class="auth-hero-footer">
-            &copy; {{ date('Y') }} MitraSpace. Hak Cipta Dilindungi.
+            &copy; {{ date('Y') }} MitraSpace. Panel Admin Internal Seller.
         </div>
     </div>
 
@@ -372,7 +372,7 @@
         <div class="auth-form-container">
             <div class="auth-form-header">
                 <h2>Login</h2>
-                <p>Selamat datang kembali! Silakan masuk ke akun Anda.</p>
+                <p>Selamat datang di Seller Portal. Silakan masuk ke akun internal Anda.</p>
             </div>
 
             {{-- Alert Messages --}}

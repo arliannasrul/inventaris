@@ -22,9 +22,6 @@ class User extends Authenticatable
         'google_id',
         'avatar',
         'password',
-        'is_premium',
-        'premium_plan',
-        'premium_expires_at',
     ];
 
     /**
@@ -46,34 +43,7 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at'   => 'datetime',
-            'premium_expires_at'  => 'datetime',
             'password'            => 'hashed',
-            'is_premium'          => 'boolean',
         ];
-    }
-
-    /**
-     * Cek apakah user masih aktif berlangganan Premium.
-     */
-    public function isPremium(): bool
-    {
-        if (!$this->is_premium) {
-            return false;
-        }
-
-        // Jika expires_at null, berarti permanent (tidak expire)
-        if ($this->premium_expires_at === null) {
-            return true;
-        }
-
-        return $this->premium_expires_at->isFuture();
-    }
-
-    /**
-     * Relasi ke riwayat pembayaran user.
-     */
-    public function payments(): HasMany
-    {
-        return $this->hasMany(Payment::class)->latest();
     }
 }
