@@ -16,11 +16,28 @@
                     <small>Arlian6A1</small>
                 </div>
             </div>
-            <nav>
+        <nav>
                 <a href="{{ route('dashboard') }}" @class(['active' => request()->routeIs('dashboard')])>Dashboard</a>
                 <a href="{{ route('items.index') }}" @class(['active' => request()->routeIs('items.*')])>Barang</a>
-                <a href="{{ route('reports.index') }}" @class(['active' => request()->routeIs('reports.*')])>Laporan</a>
+                <a href="{{ route('reports.index') }}" @class(['active' => request()->routeIs('reports.*')]) style="display: flex; align-items: center; gap: 6px;">
+                    Laporan
+                    @auth
+                        @if (!Auth::user()->isPremium())
+                            <span style="background: rgba(240,192,64,0.15); color: #f0c040; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 4px; border: 1px solid rgba(240,192,64,0.3);">PRO</span>
+                        @endif
+                    @endauth
+                </a>
                 <a href="{{ route('notifications.index') }}" @class(['active' => request()->routeIs('notifications.*')])>Notifikasi</a>
+                <a href="{{ route('premium.index') }}" @class(['active' => request()->routeIs('premium.*')]) style="display: flex; align-items: center; gap: 6px; margin-top: 8px; border-top: 1px solid rgba(255,255,255,0.07); padding-top: 12px;">
+                    @auth
+                        @if (Auth::user()->isPremium())
+                            <span style="font-size: 14px;">👑</span> Premium
+                            <span style="background: linear-gradient(135deg,#f0c040,#f97316); color: #1a1a2e; font-size: 10px; font-weight: 800; padding: 1px 6px; border-radius: 4px; margin-left: auto;">AKTIF</span>
+                        @else
+                            <span style="font-size: 14px;">⭐</span> Upgrade Premium
+                        @endif
+                    @endauth
+                </a>
             </nav>
         </div>
 
