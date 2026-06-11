@@ -73,8 +73,8 @@
 }
 
 .success-card .detail-row:last-child { border-bottom: none; }
-.success-card .detail-row .label { color: #64748b; }
-.success-card .detail-row .value { color: #f8fafc; font-weight: 600; }
+.success-card .detail-row .label { color: #374151; }
+.success-card .detail-row .value { color: #000000; font-weight: 600; }
 
 .btn-go-dashboard {
     display: inline-flex;
