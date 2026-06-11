@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 // Auth Routes (Guest Only)
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+    Route::post('/login', [AuthController::class, 'login'])->name('login.post');
     Route::get('/auth/google', [AuthController::class, 'redirectToGoogle'])->name('auth.google');
     Route::get('/auth/api/callback', [AuthController::class, 'handleGoogleCallback'])->name('auth.google.callback');
 });
