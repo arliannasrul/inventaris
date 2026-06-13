@@ -9,7 +9,7 @@ Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
     Route::post('/login', [AuthController::class, 'login'])->name('login.post');
     Route::get('/auth/google', [AuthController::class, 'redirectToGoogle'])->name('auth.google');
-    Route::get('/auth/api/callback', [AuthController::class, 'handleGoogleCallback'])->name('auth.google.callback');
+    Route::get('/auth/google/callback', [AuthController::class, 'handleGoogleCallback'])->name('auth.google.callback');
 });
 
 // Logout Route (Auth Only)
@@ -34,8 +34,6 @@ Route::middleware('auth')->group(function () {
 
     // Order & Tracking (API Kiriminaja)
     Route::get('/orders', [\App\Http\Controllers\OrderController::class, 'index'])->name('orders.index');
-    Route::get('/orders/simulation', [\App\Http\Controllers\OrderController::class, 'showSimulation'])->name('orders.simulation');
-    Route::post('/orders/simulate', [\App\Http\Controllers\OrderController::class, 'storeSimulation'])->name('orders.simulate');
     Route::post('/orders/api/rates', [\App\Http\Controllers\OrderController::class, 'apiGetRates'])->name('orders.api.rates');
     Route::get('/orders/{id}', [\App\Http\Controllers\OrderController::class, 'show'])->name('orders.show');
     Route::post('/orders/{id}/process', [\App\Http\Controllers\OrderController::class, 'processShipment'])->name('orders.process');

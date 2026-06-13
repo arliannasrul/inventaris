@@ -7,7 +7,6 @@
         <h1>Dashboard Penjual</h1>
     </div>
     <div style="display: flex; gap: 8px;">
-        <a class="button" href="{{ route('orders.simulation') }}">🛒 Buat Simulasi Order</a>
         <a class="button primary" href="{{ route('reports.print') }}">Cetak laporan</a>
     </div>
 </header>
@@ -16,6 +15,7 @@
     <article><span>Total barang</span><strong>{{ $data['summary']['items'] ?? 0 }}</strong></article>
     <article><span>Total stok</span><strong>{{ $data['summary']['stock'] ?? 0 }}</strong></article>
     <article><span>Nilai inventaris</span><strong>Rp {{ number_format($data['summary']['value'] ?? 0, 0, ',', '.') }}</strong></article>
+    <article style="border-color: var(--success-border);"><span style="color: #34d399;">Pendapatan</span><strong style="color: var(--success);">Rp {{ number_format($data['summary']['revenue'] ?? 0, 0, ',', '.') }}</strong></article>
     <article style="border-color: var(--danger-border);"><span style="color: #f87171;">Stok rendah</span><strong style="color: #ef4444;">{{ $data['summary']['lowStock'] ?? 0 }}</strong></article>
 </section>
 

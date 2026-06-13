@@ -6,9 +6,6 @@
         <p class="eyebrow">Pengiriman & Logistik</p>
         <h1>Daftar Order & Tracking</h1>
     </div>
-    <a class="button primary" href="{{ route('orders.simulation') }}">
-        <span style="font-size: 16px;">🛒</span> Simulasi Pembelian E-commerce
-    </a>
 </header>
 
 <section class="stats">
