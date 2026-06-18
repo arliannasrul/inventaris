@@ -7,6 +7,7 @@ use App\Models\StockMovement;
 use App\Models\Notification;
 use App\Models\Message;
 use App\Models\AuditLog;
+use App\Models\Order;
 use App\Services\ImageUploadService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -23,11 +24,23 @@ class InventoryController extends Controller
     {
         $items = Item::latest()->get();
 
+        // Hitung total pendapatan berdasarkan pesanan yang selesai (delivered)
+        $completedOrders = Order::with('orderItems')
+            ->where('status', 'delivered')
+            ->get();
+
+        $revenue = $completedOrders->sum(function($order) {
+            return $order->orderItems->sum(function($item) {
+                return $item->quantity * $item->price;
+            });
+        });
+
         $summary = [
             'items' => $items->count(),
             'stock' => $items->sum('quantity'),
             'value' => $items->sum(fn($item) => $item->quantity * $item->unit_price),
             'lowStock' => $items->filter(fn($item) => $item->quantity <= $item->minimum_stock)->count(),
+            'revenue' => $revenue,
         ];
 
         $lowStockItems = $items->filter(fn($item) => $item->quantity <= $item->minimum_stock)

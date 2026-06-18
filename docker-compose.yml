@@ -30,14 +30,16 @@ services:
       - traefik.http.services.inventory.loadbalancer.server.port=8000
 
   traefik:
-    image: traefik:v3.1
+    image: traefik:latest
     command:
+      - --api=true
       - --api.dashboard=true
-      - --api.insecure=true
+      - --providers.docker=true
       - --entrypoints.web.address=:80
     ports:
       - "80:80"
-      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
     labels:
       - traefik.enable=true
       - traefik.http.routers.traefik.rule=Host(`${TRAEFIK_DASHBOARD_HOST:-traefik.localhost}`)

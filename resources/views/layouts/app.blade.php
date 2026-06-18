@@ -10,17 +10,31 @@
     <aside class="sidebar">
         <div style="display: flex; flex-direction: column; gap: 4px;">
             <div class="brand">
-                <span class="brand-mark">A6</span>
+                <span class="brand-mark">MS</span>
                 <div>
-                    <strong>Inventaris</strong>
-                    <small>Arlian6A1</small>
+                    <strong>MitraSpace</strong>
+                    <small>Seller Center</small>
                 </div>
             </div>
             <nav>
-                <a href="{{ route('dashboard') }}" @class(['active' => request()->routeIs('dashboard')])>Dashboard</a>
-                <a href="{{ route('items.index') }}" @class(['active' => request()->routeIs('items.*')])>Barang</a>
-                <a href="{{ route('reports.index') }}" @class(['active' => request()->routeIs('reports.*')])>Laporan</a>
-                <a href="{{ route('notifications.index') }}" @class(['active' => request()->routeIs('notifications.*')])>Notifikasi</a>
+                <a href="{{ route('dashboard') }}" @class(['active' => request()->routeIs('dashboard')])>
+                    <span style="font-size: 16px;">📊</span> Dashboard
+                </a>
+                <a href="{{ route('items.index') }}" @class(['active' => request()->routeIs('items.*')])>
+                    <span style="font-size: 16px;">📦</span> Barang
+                </a>
+                <a href="{{ route('orders.index') }}" @class(['active' => request()->routeIs('orders.*')])>
+                    <span style="font-size: 16px;">🚚</span> Tracking & Orders
+                </a>
+                <a href="{{ route('crm.index') }}" @class(['active' => request()->routeIs('crm.*')])>
+                    <span style="font-size: 16px;">👥</span> CRM & Pelanggan
+                </a>
+                <a href="{{ route('reports.index') }}" @class(['active' => request()->routeIs('reports.*')])>
+                    <span style="font-size: 16px;">📈</span> Laporan
+                </a>
+                <a href="{{ route('notifications.index') }}" @class(['active' => request()->routeIs('notifications.*')])>
+                    <span style="font-size: 16px;">🔔</span> Notifikasi
+                </a>
             </nav>
         </div>
 
